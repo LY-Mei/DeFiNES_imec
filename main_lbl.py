@@ -32,9 +32,9 @@ mainstage = MainStage([
 ],
     # accelerator_path=args.accelerator,
     # workload_path=args.workload,
-    workload_path='inputs.WL.Meta_prototype.workload_fsrcnn',
+    workload_path='inputs.WL.Meta_prototype.workload_resnet18',
     accelerator_path='inputs.HW.Meta_prototype_DF',
-    result_name='test_lbl',
+    result_name='test_lbl_resnet18',
     loma_lpf_limit=6,
     df_tilesize_x=10000000,
     df_tilesize_y=10000000,
@@ -44,4 +44,5 @@ mainstage = MainStage([
     general_parameter_iterations={('df_horizontal_caching', 'df_vertical_caching'): ((False, False),)},
     dump_filename_pattern='{result_saving_path}/{result_name}.pkl'
 )
-mainstage.run()
+if __name__ == '__main__':
+    mainstage.run()

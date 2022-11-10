@@ -14,6 +14,8 @@ def simple_data_collect(result_saving_path):
             self.en_per_layer_collect = {}
             self.la_per_layer_collect = {}
 
+            self.memory_ut_collect = {}
+
     data_to_plot = DataToPlot()
     paths = glob.glob(f'{result_saving_path}/*.pkl')
     for idx, path in enumerate(paths):
@@ -25,6 +27,7 @@ def simple_data_collect(result_saving_path):
 
         data_to_plot.en_collect[ky], data_to_plot.la_collect[ky] = get_total_en_la(data)
         data_to_plot.en_per_layer_collect[ky], data_to_plot.la_per_layer_collect[ky] = get_per_layer_en_la(data)
+        data_to_plot.memory_ut_collect[ky] = get_memory_ut(data)
 
     return data_to_plot
 

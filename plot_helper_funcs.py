@@ -192,6 +192,15 @@ def get_total_en_la(data):
 
     return total_en, total_la
 
+def get_memory_ut(data):
+    memory_ut = []
+    for cme, extra_info in data:
+        if isinstance(cme, DataCopyLayer):
+            memory_ut.append(None)
+            continue
+        memory_ut.append(extra_info[0][0][0].mem_utili_shared)
+
+    return memory_ut
 
 def get_per_layer_en_la(data):
     per_layer_en = []
