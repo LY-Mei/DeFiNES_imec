@@ -193,6 +193,18 @@ def get_total_en_la(data):
     return total_en, total_la
 
 
+def get_per_layer_en_la(data):
+    per_layer_en = []
+    per_layer_la = []
+    for cme, extra_info in data:
+        # if isinstance(cme, DataCopyLayer):
+        #     continue
+        per_layer_en.append(cme.energy_total)
+        per_layer_la.append(cme.latency_total1)
+
+    return per_layer_en, per_layer_la
+
+
 def get_en_breakdown(data):
     from classes.depthfirst.data_copy_layer import DataCopyLayer
     en_break_down = {'MAC': 0, 'Normal Layer': 0, 'Data Copy Layer': 0}
