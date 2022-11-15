@@ -16,7 +16,22 @@ _logging.basicConfig(level=_logging_level,
 
 ####### WHERE THE RESULT FILES WILL BE SAVED TO (USERS CAN CHANGE) #######
 result_saving_path = './result'
+workload_path = 'inputs.WL.For_Pseudo_TPU.workload_resnet18'
+accelerator_path = 'inputs.HW.Pseudo_TPU'
 ##########################################################################
+
+# mainstage = MainStage([
+#     WorkloadAndAcceleratorParserStage,
+#     GeneralParameterIteratorStage,
+#     SkipIfDumpExistsStage,
+#     DumpStage,
+#     RemoveExtraInfoStage,
+#     LayerByLayerMemHierAdjustStage,
+#     SpatialMappingConversionStage,
+#     MinimalEnergyStage,
+#     LomaStage,
+#     ZigZagCostModelStage,
+# ],
 
 mainstage = MainStage([
     WorkloadAndAcceleratorParserStage,
@@ -32,9 +47,9 @@ mainstage = MainStage([
 ],
     # accelerator_path=args.accelerator,
     # workload_path=args.workload,
-    workload_path='inputs.WL.For_Pseudo_TPU.workload_resnet18',
-    accelerator_path='inputs.HW.Pseudo_TPU',
-    result_name='test_lbl_resnet18',
+    workload_path=workload_path,
+    accelerator_path=accelerator_path,
+    result_name=accelerator_path.split('.')[-1]+'__'+workload_path.split('.')[-1],
     loma_lpf_limit=6,
     df_tilesize_x=10000000,
     df_tilesize_y=10000000,

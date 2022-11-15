@@ -9,7 +9,7 @@ workload = {
     0: {  # conv1, stride 2
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=2*ox+1*fx', 'iy=2*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 64, 'C': 3, 'OY': 311, 'OX': 311, 'FY': 7, 'FX': 7},
+        'loop_dim_size': {'B': 1, 'K': 64, 'C': 3, 'OY': 112, 'OX': 112, 'FY': 7, 'FX': 7},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [-1]},
         'operand_source_dimension_mapping': {'I': {'IX': 'OX', 'IY': 'OY', 'C': 'K'}},
@@ -22,7 +22,7 @@ workload = {
     1: {  # max pool, stride 2
         'equation': 'O[b][g][oy][ox]+=W[fx][fy]*I[b][g][ix][iy]',
         'equation_relations': ['ix=2*ox+1*fx', 'iy=2*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'G': 64, 'OY': 155, 'OX': 155, 'FX': 3, 'FY': 3},
+        'loop_dim_size': {'B': 1, 'G': 64, 'OY': 56, 'OX': 56, 'FX': 3, 'FY': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'I': 8, 'W': 0},
         'operand_source': {'W': [], 'I': [0]},
         'constant_operands': ['W'],
@@ -35,7 +35,7 @@ workload = {
     2: {  # conv2_1
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 64, 'C': 64, 'OY': 153, 'OX': 153, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 64, 'C': 64, 'OY': 56, 'OX': 56, 'FY': 3, 'FX': 3, },
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [1]},
         'constant_operands': ['W'],
@@ -48,7 +48,7 @@ workload = {
     3: {  # conv2_2
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 64, 'C': 64, 'OY': 151, 'OX': 151, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 64, 'C': 64, 'OY': 56, 'OX': 56, 'FY': 3, 'FX': 3, },
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [2]},
         'constant_operands': ['W'],
@@ -61,7 +61,7 @@ workload = {
     4: {  # Addition of layer 1 (residual path) and layer 3 (main path)
         'equation': 'O[b][g][oy][ox]=X[b][g][oy][ox]+Y[b][g][oy][ox]',
         'equation_relations': [],
-        'loop_dim_size': {'B': 1, 'G': 64, 'OY': 151, 'OX': 151},
+        'loop_dim_size': {'B': 1, 'G': 64, 'OY': 56, 'OX': 56},
         'operand_precision': {'O': 16, 'O_final': 8, 'X': 8, 'Y': 8},
         'operand_source': {'X': [1], 'Y': [3]},
         'constant_operands': [],
@@ -74,7 +74,7 @@ workload = {
     5: {  # conv2_3
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 64, 'C': 64, 'OY': 149, 'OX': 149, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 64, 'C': 64, 'OY': 56, 'OX': 56, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [4]},
         'constant_operands': ['W'],
@@ -87,7 +87,7 @@ workload = {
     6: {  # conv2_4
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 64, 'C': 64, 'OY': 147, 'OX': 147, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 64, 'C': 64, 'OY': 56, 'OX': 56, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [5]},
         'constant_operands': ['W'],
@@ -100,7 +100,7 @@ workload = {
     7: {  # Addition of layer 4 (residual connection) and layer 6 (main path)
         'equation': 'O[b][g][oy][ox]=X[b][g][oy][ox]+Y[b][g][oy][ox]',
         'equation_relations': [],
-        'loop_dim_size': {'B': 1, 'G': 64, 'OY': 147, 'OX': 147},
+        'loop_dim_size': {'B': 1, 'G': 64, 'OY': 56, 'OX': 56},
         'operand_precision': {'O': 16, 'O_final': 8, 'X': 8, 'Y': 8},
         'operand_source': {'X': [4], 'Y': [6]},
         'constant_operands': [],
@@ -113,7 +113,7 @@ workload = {
     8: {  # conv3_1, stride 2
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=2*ox+1*fx', 'iy=2*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 128, 'C': 64, 'OY': 73, 'OX': 73, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 128, 'C': 64, 'OY': 28, 'OX': 28, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [7]},
         'constant_operands': ['W'],
@@ -126,7 +126,7 @@ workload = {
     9: {  # conv3_2
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 128, 'C': 128, 'OY': 71, 'OX': 71, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 128, 'C': 128, 'OY': 28, 'OX': 28, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [8]},
         'constant_operands': ['W'],
@@ -139,7 +139,7 @@ workload = {
     10: {  # Addition of layer 7 (residual connection) and layer 9 (main path)
         'equation': 'O[b][g][oy][ox]=X[b][g][oy][ox]+Y[b][g][oy][ox]',
         'equation_relations': [],
-        'loop_dim_size': {'B': 1, 'G': 128, 'OY': 71, 'OX': 71},
+        'loop_dim_size': {'B': 1, 'G': 128, 'OY': 28, 'OX': 28},
         'operand_precision': {'O': 16, 'O_final': 8, 'X': 8, 'Y': 8},
         'operand_source': {'X': [7], 'Y': [9]},
         'constant_operands': [],
@@ -152,7 +152,7 @@ workload = {
     11: {  # conv3_3
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 128, 'C': 128, 'OY': 69, 'OX': 69, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 128, 'C': 128, 'OY': 28, 'OX': 28, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [10]},
         'constant_operands': ['W'],
@@ -165,7 +165,7 @@ workload = {
     12: {  # conv3_4
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 128, 'C': 128, 'OY': 67, 'OX': 67, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 128, 'C': 128, 'OY': 28, 'OX': 28, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [11]},
         'constant_operands': ['W'],
@@ -178,7 +178,7 @@ workload = {
     13: {  # Addition of layer 10 (residual connection) and layer 12 (main path)
         'equation': 'O[b][g][oy][ox]=X[b][g][oy][ox]+Y[b][g][oy][ox]',
         'equation_relations': [],
-        'loop_dim_size': {'B': 1, 'G': 128, 'OY': 67, 'OX': 67},
+        'loop_dim_size': {'B': 1, 'G': 128, 'OY': 28, 'OX': 28},
         'operand_precision': {'O': 16, 'O_final': 8, 'X': 8, 'Y': 8},
         'operand_source': {'X': [10], 'Y': [12]},
         'constant_operands': [],
@@ -191,7 +191,7 @@ workload = {
     14: {  # conv4_1, stride 2
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=2*ox+1*fx', 'iy=2*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 256, 'C': 128, 'OY': 33, 'OX': 33, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 256, 'C': 128, 'OY': 14, 'OX': 14, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [13]},
         'constant_operands': ['W'],
@@ -204,7 +204,7 @@ workload = {
     15: {  # conv4_2
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 256, 'C': 256, 'OY': 31, 'OX': 31, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 256, 'C': 256, 'OY': 14, 'OX': 14, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [14]},
         'constant_operands': ['W'],
@@ -217,7 +217,7 @@ workload = {
     16: {  # Addition of layer 13 (residual connection) and layer 15 (main path)
         'equation': 'O[b][g][oy][ox]=X[b][g][oy][ox]+Y[b][g][oy][ox]',
         'equation_relations': [],
-        'loop_dim_size': {'B': 1, 'G': 256, 'OY': 31, 'OX': 31},
+        'loop_dim_size': {'B': 1, 'G': 256, 'OY': 14, 'OX': 14},
         'operand_precision': {'O': 16, 'O_final': 8, 'X': 8, 'Y': 8},
         'operand_source': {'X': [13], 'Y': [15]},
         'constant_operands': [],
@@ -230,7 +230,7 @@ workload = {
     17: {  # conv4_3
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 256, 'C': 256, 'OY': 29, 'OX': 29, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 256, 'C': 256, 'OY': 14, 'OX': 14, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [16]},
         'constant_operands': ['W'],
@@ -243,7 +243,7 @@ workload = {
     18: {  # conv4_4
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 256, 'C': 256, 'OY': 27, 'OX': 27, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 256, 'C': 256, 'OY': 14, 'OX': 14, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [17]},
         'constant_operands': ['W'],
@@ -256,7 +256,7 @@ workload = {
     19: {  # Addition of layer 16 (residual connection) and layer 18 (main path)
         'equation': 'O[b][g][oy][ox]=X[b][g][oy][ox]+Y[b][g][oy][ox]',
         'equation_relations': [],
-        'loop_dim_size': {'B': 1, 'G': 256, 'OY': 27, 'OX': 27},
+        'loop_dim_size': {'B': 1, 'G': 256, 'OY': 14, 'OX': 14},
         'operand_precision': {'O': 16, 'O_final': 8, 'X': 8, 'Y': 8},
         'operand_source': {'X': [16], 'Y': [18]},
         'constant_operands': [],
@@ -269,7 +269,7 @@ workload = {
     20: {  # conv5_1, stride 2
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=2*ox+1*fx', 'iy=2*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 512, 'C': 256, 'OY': 13, 'OX': 13, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 512, 'C': 256, 'OY': 7, 'OX': 7, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [19]},
         'constant_operands': ['W'],
@@ -282,7 +282,7 @@ workload = {
     21: {  # conv5_2
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 512, 'C': 512, 'OY': 11, 'OX': 11, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 512, 'C': 512, 'OY': 7, 'OX': 7, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [20]},
         'constant_operands': ['W'],
@@ -295,7 +295,7 @@ workload = {
     22: {  # Addition of layer 19 (residual connection) and layer 21 (main path)
         'equation': 'O[b][g][oy][ox]=X[b][g][oy][ox]+Y[b][g][oy][ox]',
         'equation_relations': [],
-        'loop_dim_size': {'B': 1, 'G': 512, 'OY': 11, 'OX': 11},
+        'loop_dim_size': {'B': 1, 'G': 512, 'OY': 7, 'OX': 7},
         'operand_precision': {'O': 16, 'O_final': 8, 'X': 8, 'Y': 8},
         'operand_source': {'X': [19], 'Y': [21]},
         'constant_operands': [],
@@ -308,7 +308,7 @@ workload = {
     23: {  # conv5_3
         'equation': 'O[b][k][oy][ox]+=W[k][c][fy][fx]*I[b][c][ix][iy]',
         'equation_relations': ['ix=1*ox+1*fx', 'iy=1*oy+1*fy'],
-        'loop_dim_size': {'B': 1, 'K': 512, 'C': 512, 'OY': 9, 'OX': 9, 'FY': 3, 'FX': 3},
+        'loop_dim_size': {'B': 1, 'K': 512, 'C': 512, 'OY': 7, 'OX': 7, 'FY': 3, 'FX': 3},
         'operand_precision': {'O': 16, 'O_final': 8, 'W': 8, 'I': 8},
         'operand_source': {'W': [], 'I': [22]},
         'constant_operands': ['W'],

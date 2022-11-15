@@ -199,6 +199,7 @@ def get_memory_ut(data):
             memory_ut.append(None)
             continue
         memory_ut.append(extra_info[0][0][0].mem_utili_shared)
+        # memory_ut.append(cme.mem_utili_shared)
 
     return memory_ut
 

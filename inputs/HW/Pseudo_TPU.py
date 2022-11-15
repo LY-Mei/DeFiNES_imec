@@ -12,22 +12,22 @@ def memory_hierarchy_dut(multiplier_array):
     """Memory hierarchy variables"""
     ''' size=#bit, bw=(read bw, write bw), cost=(read word energy, write work energy) '''
 
-    reg_W_reg = MemoryInstance(name="wmem_reg", size=1 * 1 * 8, r_bw=8, w_bw=8, r_cost=1, w_cost=1, area=1.11, bank=1,
-                             random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=1) #weight buffer inside PE
+    wreg = MemoryInstance(name="wreg_1B", size=1 * 1 * 8, r_bw=8, w_bw=8, r_cost=1, w_cost=1, area=1.11, bank=1,
+                          random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=1) #weight buffer inside PE
 
-    reg_W_8MB = MemoryInstance(name="wmem_8MB", size=1 * 16384 * 8, r_bw=256, w_bw=256, r_cost=94.6, w_cost=274, area=1.11, bank=1,
-                             random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=1) #energy and area unit??current values enetered in pJ
+    wmem = MemoryInstance(name="wmem_16KB", size=1 * 16384 * 8, r_bw=256, w_bw=256, r_cost=94.6, w_cost=274, area=1.11, bank=1,
+                          random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=1) #energy and area unit??current values enetered in pJ
 
-    reg_O_8MB = MemoryInstance(name="omem_32KB", size=1 * 16384 * 8, r_bw=512, w_bw=512, r_cost=94.6, w_cost=274, area=1.11, bank=1,
-                             random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=1)
+    omem = MemoryInstance(name="omem_16KB", size=1 * 16384 * 8, r_bw=512, w_bw=512, r_cost=94.6, w_cost=274, area=1.11, bank=1,
+                          random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=1)
 
-    reg_I_8MB = MemoryInstance(name="omem_32KB", size=1 * 16384 * 8, r_bw=256, w_bw=256, r_cost=94.6, w_cost=274, area=1.11, bank=1,
-                             random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=1)
+    imem = MemoryInstance(name="imem_16KB", size=1 * 16384 * 8, r_bw=256, w_bw=256, r_cost=94.6, w_cost=274, area=1.11, bank=1,
+                          random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=1)
 
 
     ##################################### on-chip memory hierarchy building blocks #####################################
 
-    GB = MemoryInstance(name="L1", size=32 * 1024 * 8, r_bw=128, w_bw=128, r_cost=26.01, w_cost=23.65, area=0, bank=1, random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=2, min_r_granularity=64, min_w_granularity=64) 
+    # GB = MemoryInstance(name="L1", size=32 * 1024 * 8, r_bw=128, w_bw=128, r_cost=26.01, w_cost=23.65, area=0, bank=1, random_bank_access=False, r_port=1, w_port=1, rw_port=0, latency=2, min_r_granularity=64, min_w_granularity=64)
 
    #######################################################################################################################
 
@@ -45,25 +45,23 @@ def memory_hierarchy_dut(multiplier_array):
     ##################################### on-chip highest memory hierarchy initialization #####################################
 
 
-    memory_hierarchy_graph.add_memory(memory_instance=reg_W_reg, operands=('I2',),
+    memory_hierarchy_graph.add_memory(memory_instance=wreg, operands=('I2',),
                                       port_alloc=({'fh': 'w_port_1', 'tl': 'r_port_1', 'fl': None, 'th': None},),
                                       served_dimensions={(0, 0)})
 
-    memory_hierarchy_graph.add_memory(memory_instance=reg_W_8MB, operands=('I2',),
+    memory_hierarchy_graph.add_memory(memory_instance=wmem, operands=('I2',),
                                       port_alloc=({'fh': 'w_port_1', 'tl': 'r_port_1', 'fl': None, 'th': None},),
                                       served_dimensions='all')
 
-    memory_hierarchy_graph.add_memory(memory_instance=reg_O_8MB, operands=('O',),
+    memory_hierarchy_graph.add_memory(memory_instance=omem, operands=('O',),
                                       port_alloc=({'fh': 'w_port_1', 'tl': 'r_port_1', 'fl': 'w_port_1', 'th': 'r_port_1'},),
                                       served_dimensions='all')
 
-
-    memory_hierarchy_graph.add_memory(memory_instance=reg_I_8MB, operands=('I1',),
+    memory_hierarchy_graph.add_memory(memory_instance=imem, operands=('I1',),
                                       port_alloc=({'fh': 'w_port_1', 'tl': 'r_port_1', 'fl': None, 'th': None},),
                                       served_dimensions='all')
 
     ####################################################################################################################
-
 
 
     memory_hierarchy_graph.add_memory(memory_instance=dram, operands=('I1', 'I2', 'O'),

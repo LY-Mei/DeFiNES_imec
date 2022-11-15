@@ -785,22 +785,23 @@ class CostModelEvaluation:
 
         ''' Assumed that different ports can work in parallel during the final data off-loading phase '''
         data_offloading_cycle = 0
-        previous_offload_port_list = data_offloading_cc_pair_combined[-1][1]
-        previous_data_move_mems = data_offloading_cc_pair_combined[-1][2]
-        for idxx, (offload_cycle, offload_port_list, data_move_mems) in enumerate(reversed(data_offloading_cc_pair_combined)):
-            if idxx == 0:
-                data_offloading_cycle += offload_cycle
-            else:
-                if len(offload_port_list + previous_offload_port_list) < len(offload_port_list) + len(previous_offload_port_list):
-                    ''' means that there is port-sharing, things cannot go parallel '''
+        if data_offloading_cc_pair_combined:
+            previous_offload_port_list = data_offloading_cc_pair_combined[-1][1]
+            previous_data_move_mems = data_offloading_cc_pair_combined[-1][2]
+            for idxx, (offload_cycle, offload_port_list, data_move_mems) in enumerate(reversed(data_offloading_cc_pair_combined)):
+                if idxx == 0:
                     data_offloading_cycle += offload_cycle
                 else:
-                    ''' means that there is no port-sharing, things can go parallel, only the middle memory latency need to be added '''
-                    middle_mem_latency = get_middle_mem_latency(
-                        self.mem_hierarchy_dict, self.layer_op_to_mem_op, previous_data_move_mems, data_move_mems)
-                    data_offloading_cycle += middle_mem_latency
-                previous_offload_port_list = offload_port_list
-                previous_data_move_mems = data_move_mems
+                    if len(offload_port_list + previous_offload_port_list) < len(offload_port_list) + len(previous_offload_port_list):
+                        ''' means that there is port-sharing, things cannot go parallel '''
+                        data_offloading_cycle += offload_cycle
+                    else:
+                        ''' means that there is no port-sharing, things can go parallel, only the middle memory latency need to be added '''
+                        middle_mem_latency = get_middle_mem_latency(
+                            self.mem_hierarchy_dict, self.layer_op_to_mem_op, previous_data_move_mems, data_move_mems)
+                        data_offloading_cycle += middle_mem_latency
+                    previous_offload_port_list = offload_port_list
+                    previous_data_move_mems = data_move_mems
 
         self.data_offloading_cc_pair_combined = data_offloading_cc_pair_combined
         self.data_offloading_cycle = data_offloading_cycle

@@ -13,6 +13,7 @@ from .TemporalOrderingConversionStage import TemporalOrderingConversionStage
 from .WorkloadStage import WorkloadStage
 from .DfStackCutIfWeightsOverflowStage import DfStackCutIfWeightsOverflowStage
 from .MemOpRenameFor2LayerOpShareSameMemOpStage import MemOpRenameFor2LayerOpShareSameMemOpStage
+from .MemHierAjustStages import LayerByLayerMemHierAdjustStage
 
 """
 Parameter providers: these parameters are provided to substages by the following classes:
